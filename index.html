@@ -3,65 +3,14 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Google OAuth Sign-In</title>
-  <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
-<script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-auth.js"></script>
-<script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-database.js"></script>
-
+  <title>Speech Lab Controls</title>
 </head>
 <body>
-  <h1>Sign In with Google</h1>
-  <button onclick="signInWithGoogle()">Sign In with Google</button>
-  <button onclick="signOut()">Sign Out</button>
-  <div id="user-info"></div>
-
-  <script>
-    // Firebase config
-    const firebaseConfig = {
-      apiKey: "AIzaSyDpJ9cb6VdMSV_Lrxy5MrM4S7_3alqm_AE",
-      authDomain: "speech-lab-iot.firebaseapp.com",
-      databaseURL: "https://speech-lab-iot-default-rtdb.europe-west1.firebasedatabase.app",
-      projectId: "speech-lab-iot",
-      storageBucket: "speech-lab-iot.firebasestorage.app",
-      messagingSenderId: "160784896852",
-      appId: "1:160784896852:web:c23b998e2c846491676ec1"
-    };
-    
-    // Initialize Firebase
-    firebase.initializeApp(firebaseConfig);
-
-    const auth = firebase.auth();
-    const provider = new firebase.auth.GoogleAuthProvider();
-
-    function signInWithGoogle() {
-      auth.signInWithPopup(provider)
-        .then((result) => {
-          const user = result.user;
-          console.log('User signed in:', user.displayName);
-        })
-        .catch((error) => {
-          console.error('Error signing in:', error);
-        });
-    }
-
-    function signOut() {
-      auth.signOut().then(() => {
-        console.log('User signed out');
-      }).catch((error) => {
-        console.error('Error signing out:', error);
-      });
-    }
-
-    auth.onAuthStateChanged((user) => {
-      if (user) {
-        document.getElementById('user-info').innerHTML = `
-          <p>Welcome, ${user.displayName}</p>
-          <img src="${user.photoURL}" alt="Profile Picture" />
-        `;
-      } else {
-        document.getElementById('user-info').innerHTML = '<p>Please sign in to continue</p>';
-      }
-    });
-  </script>
+  <h1>Speech Lab Controls</h1>
+  <div id="content"></div>
+  <script src="https://www.gstatic.com/firebasejs/9.x.x/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.x.x/firebase-auth.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.x.x/firebase-database.js"></script>
+  <script src="app.js"></script>
 </body>
 </html>
