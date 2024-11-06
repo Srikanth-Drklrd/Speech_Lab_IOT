@@ -1,13 +1,13 @@
 // Firebase configuration
 const firebaseConfig = {
-  apiKey: "YOUR_API_KEY",
-  authDomain: "YOUR_PROJECT_ID.firebaseapp.com",
-  databaseURL: "https://YOUR_PROJECT_ID.firebaseio.com",
-  projectId: "YOUR_PROJECT_ID",
-  storageBucket: "YOUR_PROJECT_ID.appspot.com",
-  messagingSenderId: "YOUR_MESSAGING_SENDER_ID",
-  appId: "YOUR_APP_ID"
-};
+      apiKey: "AIzaSyDpJ9cb6VdMSV_Lrxy5MrM4S7_3alqm_AE",
+      authDomain: "speech-lab-iot.firebaseapp.com",
+      databaseURL: "https://speech-lab-iot-default-rtdb.europe-west1.firebasedatabase.app",
+      projectId: "speech-lab-iot",
+      storageBucket: "speech-lab-iot.firebasestorage.app",
+      messagingSenderId: "160784896852",
+      appId: "1:160784896852:web:c23b998e2c846491676ec1"
+    };
 
 // Initialize Firebase
 firebase.initializeApp(firebaseConfig);
