@@ -37,6 +37,7 @@ Raspberry Pi: Central IoT controller managing GPIO operations and speech process
 ---
 
 📂 Directory Structure
+```plain text
 
 Speech_Lab_IOT/
 │
@@ -48,7 +49,7 @@ Speech_Lab_IOT/
     ├── hey_cera.ppn        # Custom wake word model ("Hey Cera") for Porcupine
     ├── cera_cmds.rhn       # Rhino command set for parsing lab appliance commands
 
-
+```
 ---
 
 🚀 Setup Instructions
