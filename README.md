@@ -69,15 +69,15 @@ Internet access (optional — for Firebase syncing)
 
 SSH into your Raspberry Pi or open a terminal.
 
+``` plain text
+
 sudo apt-get update
 sudo apt-get install python3-pip
 pip3 install pvporcupine pvrhino firebase-admin RPi.GPIO
 
 > Note: You need Picovoice SDK access. Sign up for free to get your access key.
 
-
-
-
+```
 ---
 
 3. Setup Firebase (Optional)
