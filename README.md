@@ -1,152 +1,187 @@
-# Voice-Controlled Smart Home Automation (Offline + Realtime Sync)
+Speech_Lab_IOT
 
-This project implements an **IoT Smart Home Automation System** using **Raspberry Pi**, **Picovoice** (Porcupine + Rhino), and **Firebase Realtime Database**.  
-It enables **offline voice control** of home appliances with **real-time state synchronization** to a remote **web app dashboard** — ensuring both **privacy** and **accessibility**.
+An intelligent IoT automation system for lab environments powered by offline-first speech control and online real-time synchronization with Firebase.
+Designed for reliability, privacy, and seamless operation — even without internet!
 
----
-
-## ✨ Features
-
-- 🎹 **Offline Wake Word Detection** (using Picovoice Porcupine)
-- 🦰 **Offline Speech-to-Intent Parsing** (using Picovoice Rhino)
-- ⚡ **Local Appliance Control** (using Raspberry Pi GPIO)
-- 🌐 **Realtime Cloud Sync** (Firebase Realtime Database)
-- 🛡️ **Edge Computing** (no need for constant Internet access)
-- 📊 **Highly Accurate and Efficient** models
 
 ---
 
-## 🛠 Tools & Technologies
+✨ Features
 
-- Raspberry Pi 3 / 4 (or equivalent)
-- Python 3.x
-- Picovoice Porcupine SDK
-- Picovoice Rhino SDK
-- Firebase Realtime Database
-- GPIO Zero / RPi.GPIO Python libraries
+Offline Speech Control: Fully operational via local voice commands when internet is unavailable.
 
----
+Real-Time Cloud Sync (When Online): Sync appliance states to Firebase Realtime Database for remote monitoring/control.
 
-## 📦 Project Structure
+Automatic Mode Switching: Seamlessly transitions between offline-only and online-connected modes based on internet availability.
 
-```
-├── main.py             # Main application file
-├── voice_commands.py   # Handles voice capture and intent recognition
-├── appliance_control.py# Controls GPIO relays based on commands
-├── firebase_sync.py    # Syncs appliance states with Firebase
-├── config.py           # Configuration file (API keys, model paths, GPIO pins)
-├── requirements.txt    # Python dependencies
-├── README.md           # Project documentation
-└── models/             # Directory for Porcupine and Rhino models
-```
+Edge Computing: Speech processing is fully local — no audio is sent externally.
+
+Optimized for Raspberry Pi: Lightweight and efficient for resource-constrained environments.
+
+
 
 ---
 
-## ⚙️ Setup Instructions
+🛠 Tools and Technologies
 
-### 1. Install OS and Prepare Raspberry Pi
-- Install **Raspberry Pi OS Lite** (or Desktop).
-- Update your Pi:
-  ```bash
-  sudo apt-get update
-  sudo apt-get upgrade
-  ```
-- Enable **I2C**, **SPI**, and **GPIO** if needed:
-  ```bash
-  sudo raspi-config
-  ```
+Picovoice Porcupine (hey_cera.ppn): Wake word detection ("Hey Cera") model.
 
-### 2. Clone the Repository
-```bash
-git clone https://github.com/your-username/voice-smart-home.git
-cd voice-smart-home
-```
+Picovoice Rhino (cera_cmds.rhn): Speech-to-intent parsing for voice command recognition.
 
-### 3. Set Up Python Environment
-```bash
-python3 -m venv venv
-source venv/bin/activate
-pip install -r requirements.txt
-```
+Firebase Realtime Database: Cloud backend for appliance state synchronization (when online).
 
-### 4. Download Picovoice Models
-- Create an account at [Picovoice Console](https://console.picovoice.ai/).
-- Train and download:
-  - **Wake Word** (Porcupine)
-  - **Speech-to-Intent** context (Rhino)
-- Place downloaded `.ppn` (Porcupine) and `.rhn` (Rhino) model files into the `models/` directory.
-- Update their paths in `config.py`.
+Raspberry Pi: Central IoT controller managing GPIO operations and speech processing.
 
-### 5. Configure Firebase
-- Create a Firebase project.
-- Set up **Realtime Database**.
-- Get your **Service Account JSON** and **Database URL**.
-- Add Firebase credentials to `config.py`:
-  ```python
-  FIREBASE_CREDENTIALS = "path/to/your/serviceAccountKey.json"
-  FIREBASE_DATABASE_URL = "https://your-database.firebaseio.com/"
-  ```
 
-### 6. Connect Appliances to GPIO
-- Wire relays to Raspberry Pi GPIO pins.
-- Map each relay in `appliance_control.py`.
-
-Example:
-```python
-DEVICE_GPIO_MAP = {
-    "light": 17,
-    "fan": 27,
-    "heater": 22
-}
-```
 
 ---
 
-## 🚀 Running the Application
+📂 Directory Structure
 
-```bash
-python main.py
-```
+Speech_Lab_IOT/
+│
+└── pi/
+    ├── main.py             # Main execution script
+    ├── speech_engine.py    # Handles wake word detection and speech-to-intent parsing
+    ├── cloud.py            # Firebase real-time database integration (only when online)
+    ├── gpios.py            # GPIO control for appliances (lights, fans, etc.)
+    ├── hey_cera.ppn        # Custom wake word model ("Hey Cera") for Porcupine
+    ├── cera_cmds.rhn       # Rhino command set for parsing lab appliance commands
 
-The system will:
-- Continuously listen for the **wake word**.
-- Parse the spoken command into an **intent**.
-- **Control the appliance** via GPIO and **update the Firebase** database in real-time.
-
----
-
-## 🖥️ Web Dashboard (Optional)
-
-You can also set up a **remote web dashboard** connected to the same Firebase database to monitor and manually control appliances from anywhere.
 
 ---
 
-## 📊 Performance
+🚀 Setup Instructions
 
-| Model | CPU Usage (RPi 3) | Accuracy | Latency |
-|:-----:|:-----------------:|:--------:|:-------:|
-| Porcupine Wake Word | ~3.8% | 95% | ~50 ms |
-| Rhino Intent Parser | ~15-25% | 95%+ | ~150 ms |
+1. Hardware Requirements
 
-*(Tested in moderately noisy environments)*
+Raspberry Pi 3/4 (with Raspbian OS)
+
+Microphone (USB or Pi-compatible)
+
+Connected appliances via GPIO (Relays, Lights, Fans, etc.)
+
+Internet access (optional — for Firebase syncing)
+
+
+2. Install Dependencies
+
+SSH into your Raspberry Pi or open a terminal.
+
+sudo apt-get update
+sudo apt-get install python3-pip
+pip3 install pvporcupine pvrhino firebase-admin RPi.GPIO
+
+> Note: You need Picovoice SDK access. Sign up for free to get your access key.
+
+
+
 
 ---
 
-## 👋 Contributions
+3. Setup Firebase (Optional)
 
-Feel free to fork the project, improve it, and send a pull request!
+> Required only if you want online real-time synchronization.
+
+
+
+Create a Firebase project.
+
+Enable Realtime Database (start in test mode).
+
+Download your Firebase Admin SDK JSON key.
+
+Save it inside the pi/ folder as firebase_key.json.
+
+Update the cloud.py file if necessary to match your database URL.
+
+
 
 ---
 
-## 📜 License
+4. Configure Environment Variables
+
+Create a .env file (optional) if you prefer managing API keys or environment configs separately.
+
+
+---
+
+5. Run the System
+
+Navigate to the pi/ directory and run:
+
+cd Speech_Lab_IOT/pi
+python3 main.py
+
+The system starts listening for "Hey Cera" wake word.
+
+Recognizes speech commands to control lab appliances.
+
+When online, synchronizes appliance states with Firebase.
+
+When offline, automatically operates using only local speech controls without interruption.
+
+
+
+---
+
+🗣 Example Commands
+
+After saying "Hey Cera", you can issue commands like:
+
+"Turn on the fan"
+
+"Switch off the light"
+
+"Turn on all devices"
+
+"Turn off the fan"
+
+
+(Complete list of intents defined in cera_cmds.rhn.)
+
+
+---
+
+📊 Benchmark & Performance
+
+> (Insert Figures/Graphs showing Rhino Intent Recognition Accuracy, CPU Load, etc.)
+
+
+
+Rhino provides high speech-to-intent recognition accuracy even in noisy environments.
+
+Extremely lightweight — minimal CPU usage on Raspberry Pi.
+
+Real-time responsiveness for controlling devices.
+
+
+
+---
+
+💡 Future Improvements
+
+Add a web dashboard for remote monitoring and control
+
+Integrate a local MQTT server for faster device messaging
+
+Extend the system to include HVAC, security, and environmental sensors
+
+
+
+---
+
+📜 License
 
 This project is licensed under the MIT License.
 
+
 ---
 
-## 🧑‍💻 Acknowledgements
+🛡 Badges
 
-- [Picovoice](https://picovoice.ai/)
-- [Firebase](https://firebase.google.com/)
-- Raspberry Pi Foundation
+   
+
+
+---
 
