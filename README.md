@@ -1,4 +1,4 @@
-Speech_Lab_IOT
+# **Speech Lab IOT**
 
 An intelligent IoT automation system for lab environments powered by offline-first speech control and online real-time synchronization with Firebase.
 Designed for reliability, privacy, and seamless operation — even without internet!
