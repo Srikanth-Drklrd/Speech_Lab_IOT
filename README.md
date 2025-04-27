@@ -73,9 +73,9 @@ SSH into your Raspberry Pi or open a terminal.
 
 sudo apt-get update
 sudo apt-get install python3-pip
-pip3 install pvporcupine pvrhino firebase-admin RPi.GPIO
-
-> Note: You need Picovoice SDK access. Sign up for free to get your access key.
+python3 -m venv speech
+source speech/bin/activate
+pip install -r requirements.txt
 
 ```
 ---
