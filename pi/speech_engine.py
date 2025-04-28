@@ -13,10 +13,10 @@ class data:
 shared_data = data()
 
 def speech2intent():
-	porcupine = pvporcupine.create(keyword_paths=["~/speech-iot/hey_cera.ppn"],
+	porcupine = pvporcupine.create(keyword_paths=["./hey_cera.ppn"],
 								access_key = "sXtgT8EwOOUXNJFivyYkEnTYm/V5phsMNSDzw+Zh9p9HdniCBqbzCw==")  # You can also use the custom .ppn file if created
 	
-	rhino = pvrhino.create(context_path="cera_cmds.rhn",
+	rhino = pvrhino.create(context_path="./cera_cmds.rhn",
 								access_key = "sXtgT8EwOOUXNJFivyYkEnTYm/V5phsMNSDzw+Zh9p9HdniCBqbzCw==")
 
 	pa = pyaudio.PyAudio()
